@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:github_api_demo/api/github_api.dart';
-
-import 'following_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage();
@@ -11,7 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final api = GitHubApi();
   final TextEditingController _controller = TextEditingController();
   bool isLoading = false;
   String? errorMessage;
@@ -58,13 +54,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white.withOpacity(.1)),
                 child: TextField(
-                  onChanged: (value) {
-                    if (errorMessage != null) {
-                      setState(() {
-                        errorMessage = null;
-                      });
-                    }
-                  },
+                  onChanged: (value) {},
                   controller: _controller,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
@@ -105,31 +95,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _getUser() {
-    if (_controller.text.isEmpty) {
-      setState(() {
-        errorMessage = "Informe o nome de usuário";
-      });
-    } else {
-      setState(() {
-        isLoading = true;
-      });
-      api.findUser(_controller.text).then((user) {
-        setState(() {
-          isLoading = false;
-        });
-
-        if (user != null) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => FollowingPage(user: user)));
-        } else {
-          setState(() {
-            errorMessage = "Usuário não encontrado";
-          });
-        }
-      });
-    }
-  }
+  _getUser() {}
 }

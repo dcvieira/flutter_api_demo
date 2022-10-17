@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:github_api_demo/api/github_api.dart';
-
-import '../models/user.dart';
 
 class FollowingPage extends StatefulWidget {
-  final User user;
-  const FollowingPage({required this.user});
+  const FollowingPage();
 
   @override
   State<FollowingPage> createState() => _FollowingPageState();
 }
 
 class _FollowingPageState extends State<FollowingPage> {
-  final api = GitHubApi();
-  late Future<List<User>> _futureFollowings;
-
-  @override
-  void initState() {
-    _futureFollowings = api.getFollowing(widget.user.login);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +27,13 @@ class _FollowingPageState extends State<FollowingPage> {
                   child: CircleAvatar(
                     radius: 50.0,
                     backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkImage(widget.user.avatarUrl),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  widget.user.login,
+                  "user Login",
                   style: TextStyle(fontSize: 22),
                 )
               ],
@@ -56,32 +42,6 @@ class _FollowingPageState extends State<FollowingPage> {
           const SizedBox(
             height: 20,
           ),
-          Expanded(
-              child: FutureBuilder<List<User>>(
-            future: _futureFollowings,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                var followings = snapshot.data ?? [];
-                return ListView.builder(
-                  itemCount: followings.length,
-                  itemBuilder: ((context, index) {
-                    var user = followings[index];
-                    return ListTile(
-                      leading: CircleAvatar(
-                          backgroundImage: NetworkImage(user.avatarUrl)),
-                      title: Text(user.login),
-                      trailing: const Text(
-                        "Following",
-                        style: TextStyle(color: Colors.blueAccent),
-                      ),
-                    );
-                  }),
-                );
-              }
-            },
-          ))
         ]),
       ),
     );
