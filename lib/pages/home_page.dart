@@ -84,9 +84,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(color: Colors.white),
                         ),
                 ),
-                onPressed: () {
-                  _getUser();
-                },
+                onPressed: () {},
               )
             ]),
           ),
@@ -94,6 +92,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  _getUser() {}
 }

@@ -19,21 +19,23 @@ class _FollowingPageState extends State<FollowingPage> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Column(
+            child: const Column(
               children: [
                 SizedBox(
                   width: 120,
                   height: 120,
                   child: CircleAvatar(
                     radius: 50.0,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Colors.blue,
+                    backgroundImage: NetworkImage(
+                        "https://avatars.githubusercontent.com/u/583231?v=4"),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "user Login",
+                  "Octocat",
                   style: TextStyle(fontSize: 22),
                 )
               ],
@@ -41,6 +43,10 @@ class _FollowingPageState extends State<FollowingPage> {
           ),
           const SizedBox(
             height: 20,
+          ),
+          Expanded(
+            // Lista de usuários seguindo
+            child: Container(),
           ),
         ]),
       ),
