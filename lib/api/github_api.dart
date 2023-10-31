@@ -10,7 +10,14 @@ class GitHubApi {
 
   Future<User?> findUser(String userName) async {
     final url = '${baseUrl}users/$userName';
-    var response = await http.get(Uri.parse(url));
+      var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
